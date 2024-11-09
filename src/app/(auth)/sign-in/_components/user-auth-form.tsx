@@ -8,28 +8,44 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useRouter } from "next/navigation";
+import { login } from "@/lib/auth";
+import { useToast } from "@/hooks/use-toast";
 
 interface UserAuthFormProps extends React.HTMLAttributes<HTMLDivElement> {}
 
 export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
    const router = useRouter();
    const [isLoading, setIsLoading] = React.useState<boolean>(false);
+   const { toast } = useToast();
 
    async function onSubmit(event: React.SyntheticEvent) {
       event.preventDefault();
       setIsLoading(true);
 
       const formData = new FormData(event.target as HTMLFormElement);
-      const email = formData.get("email");
-      const password = formData.get("password");
+      const username = formData.get("username") as string;
+      const password = formData.get("password") as string;
 
-      console.log(email, password);
+      const res = await login(username, password);
 
-      router.push("/")
+      if (res.error) {
+         toast({
+            variant: "destructive",
+            title: "Error",
+            description: res.message,
+         });
+      }
 
-      setTimeout(() => {
-         setIsLoading(false);
-      }, 3000);
+      if (res.success) {
+         toast({
+            variant: "default",
+            description: res.message,
+         });
+
+         router.push("/dashboard");
+      }
+
+      setIsLoading(false);
    }
 
    return (
@@ -37,16 +53,15 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
          <form onSubmit={onSubmit}>
             <div className="grid gap-2">
                <div className="grid gap-1">
-                  <Label className="sr-only" htmlFor="email">
-                     Email
+                  <Label className="sr-only" htmlFor="username">
+                     Username
                   </Label>
                   <Input
-                     id="email"
-                     name="email"
-                     placeholder="name@example.com"
-                     type="email"
+                     id="username"
+                     name="username"
+                     placeholder="John Doe"
+                     type="text"
                      autoCapitalize="none"
-                     autoComplete="email"
                      autoCorrect="off"
                      disabled={isLoading}
                   />
@@ -67,7 +82,7 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
                   {isLoading && (
                      <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />
                   )}
-                  Sign In with Email
+                  Sign In with Username
                </Button>
             </div>
          </form>

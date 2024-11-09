@@ -1,5 +1,4 @@
 import { Metadata } from "next";
-import Image from "next/image";
 import { UserAuthForm } from "./_components/user-auth-form";
 
 export const metadata: Metadata = {
@@ -36,7 +35,7 @@ export default function AuthenticationPage() {
                         Sign In
                      </h1>
                      <p className="text-sm text-muted-foreground">
-                        Enter your email and password below
+                        Enter your username and password below
                         <br />
                         to continue to dashboard
                      </p>
