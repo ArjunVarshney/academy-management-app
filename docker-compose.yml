@@ -1,0 +1,26 @@
+services:
+  website:
+    build: .
+    ports:
+      - 3000:3000
+      - 5555:5555
+    container_name: website
+    depends_on:
+      - db
+    volumes:
+      - ./:/app
+    env_file:
+      - ./.env
+    command: bash -c "rm -rf .next && npm install && npm run dev"
+  
+  db:
+    image: postgres
+    restart: always
+    container_name: db
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+    volumes: 
+      - ./db/data:/var/lib/postgresql/data
