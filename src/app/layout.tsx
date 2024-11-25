@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { Urbanist } from "next/font/google";
 import { Toaster } from "@/components/ui/toaster";
+import { ThemeProvider } from "@/providers/theme-provider";
 
 const font = Urbanist({ subsets: ["latin"] });
 
@@ -16,10 +17,12 @@ export default function RootLayout({
    children: React.ReactNode;
 }>) {
    return (
-      <html lang="en">
+      <html lang="en" suppressHydrationWarning>
          <body className={font.className}>
-            <main>{children}</main>
-            <Toaster />
+            <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+               <main>{children}</main>
+               <Toaster />
+            </ThemeProvider>
          </body>
       </html>
    );

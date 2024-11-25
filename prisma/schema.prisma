@@ -7,6 +7,7 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+// Done
 model Owner {
   id   String @id @default(uuid())
   name String
@@ -14,6 +15,7 @@ model Owner {
   user User?
 }
 
+// Done
 model Admin {
   id        String   @id @default(uuid())
   name      String
@@ -31,6 +33,7 @@ model Admin {
   created_at DateTime @default(now())
 }
 
+// Done
 model Student {
   id        String   @id @default(uuid())
   name      String
@@ -56,6 +59,7 @@ model Student {
   created_at DateTime @default(now())
 }
 
+// Done
 model Teacher {
   id        String   @id @default(uuid())
   name      String
@@ -78,6 +82,7 @@ model Teacher {
   created_at DateTime @default(now())
 }
 
+// Done
 model Staff {
   id        String   @id @default(uuid())
   name      String
@@ -95,6 +100,7 @@ model Staff {
   created_at DateTime @default(now())
 }
 
+// Done
 model User {
   id       String @id @default(uuid())
   username String @unique
@@ -119,16 +125,18 @@ model User {
   achievements Acheivement[]
 }
 
+// Done
 model Grade {
   id    String @id @default(uuid())
-  level Int
+  level Int    @unique
 
   classes Class[]
 }
 
+// Done
 model Class {
   id   String @id @default(uuid())
-  name String
+  name String @unique
 
   students      Student[]
   subjects      Subject[]
@@ -149,9 +157,10 @@ model Class {
   supervisor   Teacher @relation(fields: [supervisorId], references: [id])
 }
 
+// Done
 model Subject {
   id   String @id @default(uuid())
-  name String
+  name String @unique
 
   teachers    Teacher[]
   classes     Class[]
@@ -160,6 +169,7 @@ model Subject {
   exams       Exam[]
 }
 
+// Done
 model Lesson {
   id String @id @default(uuid())
 
@@ -179,6 +189,7 @@ model Lesson {
   teacher   Teacher @relation(fields: [teacherId], references: [id])
 }
 
+// Done
 model Attendance {
   id      String  @id @default(uuid())
   present Boolean @default(false)
@@ -196,6 +207,7 @@ model TimeTable {
   class Class?
 }
 
+// Done
 model Assignment {
   id          String   @id @default(uuid())
   assign_date DateTime
@@ -241,6 +253,7 @@ model Result {
   student   Student @relation(fields: [studentId], references: [id])
 }
 
+// Done
 model Announcement {
   id          String           @id @default(uuid())
   priority    Int
@@ -252,6 +265,7 @@ model Announcement {
   classes Class[]
 }
 
+// Done
 model Event {
   id          String   @id @default(uuid())
   title       String
@@ -262,6 +276,7 @@ model Event {
   classes Class[]
 }
 
+// Done
 model Complaint {
   id String @id @default(uuid())
 
@@ -274,9 +289,10 @@ model Complaint {
   studentId String?  @unique
   student   Student? @relation(fields: [studentId], references: [id])
 
-  created_at DateTime
+  created_at DateTime @default(now())
 }
 
+// Done
 model Post {
   id          String   @id @default(uuid())
   img         String

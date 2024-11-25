@@ -9,7 +9,7 @@ const DashboardPage = async (props: Props) => {
 
    // redirect if the session is not present
    if (!session) return redirect("/sign-in");
-   
+
    console.log(session.user);
    // Todo: Get the user from the backend and show dash accordingly.
    // Fetch user
