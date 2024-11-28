@@ -3,6 +3,7 @@ import "./globals.css";
 import { Urbanist } from "next/font/google";
 import { Toaster } from "@/components/ui/toaster";
 import { ThemeProvider } from "@/providers/theme-provider";
+import ReactQueryProvider from "@/providers/react-query-provider";
 
 const font = Urbanist({ subsets: ["latin"] });
 
@@ -19,10 +20,16 @@ export default function RootLayout({
    return (
       <html lang="en" suppressHydrationWarning>
          <body className={font.className}>
-            <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-               <main>{children}</main>
-               <Toaster />
-            </ThemeProvider>
+            <ReactQueryProvider>
+               <ThemeProvider
+                  attribute="class"
+                  defaultTheme="system"
+                  enableSystem
+               >
+                  <main>{children}</main>
+                  <Toaster />
+               </ThemeProvider>
+            </ReactQueryProvider>
          </body>
       </html>
    );

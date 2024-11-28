@@ -1,22 +1,24 @@
-import { getSession } from "@/lib/auth";
+"use client";
+
+import { PopulationChart } from "@/components/dashboard/population-chart";
+import fetchCurrentUser from "@/hooks/get-current-user";
+import { useQuery } from "@tanstack/react-query";
 import { redirect } from "next/navigation";
 import React from "react";
 
 type Props = {};
 
-const DashboardPage = async (props: Props) => {
-   const session = await getSession();
+const DashboardPage = (props: Props) => {
+   const {
+      data: user,
+      isLoading,
+      error,
+   } = useQuery({ queryKey: ["currentUser"], queryFn: fetchCurrentUser });
 
-   // redirect if the session is not present
-   if (!session) return redirect("/sign-in");
-
-   console.log(session.user);
-   // Todo: Get the user from the backend and show dash accordingly.
-   // Fetch user
    // redirect if not preset or if unauthorized
-   // add user to global state
+   if (error || (!isLoading && !user)) return <p>No user found</p>;
 
-   return <div>DashboardPage</div>;
+   return <div>Some dashboard</div>;
 };
 
 export default DashboardPage;
