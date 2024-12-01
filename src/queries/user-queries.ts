@@ -1,14 +1,21 @@
-import axios from "axios";
+import db from "@/lib/db";
+import { Prisma } from "@prisma/client";
 
-export const getUserByUsername = async (username: string) => {
-   try {
-      // const response = await axios.get("/api/user/" + username);
-      // return response.data;
-      return { something: true };
-   } catch (err) {
-      return {
-         error: true,
-         message: "Error fetching user",
-      };
-   }
+export const getAllUsers = async (
+   filter: Prisma.UserWhereInput
+) => {
+   return await db.user.findMany({
+      where: filter,
+      include: {
+         staff: true,
+         student: true,
+         teacher: true,
+         admin: true,
+         owner: true,
+         achievements: true,
+      },
+      omit: {
+         password: true,
+      },
+   });
 };

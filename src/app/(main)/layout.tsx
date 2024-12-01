@@ -24,7 +24,7 @@ export default async function Layout({
    return (
       <SidebarProvider defaultOpen={true}>
          <AppSidebar />
-         <main className="p-3">
+         <main className="p-3 flex-1">
             <TopBar />
             <div className="px-1.5 py-3">{children}</div>
          </main>

@@ -286,7 +286,7 @@ async function main() {
             user: {
                create: {
                   username,
-                  role: "TEACHER",
+                  role: "STAFF",
                   password,
                },
             },

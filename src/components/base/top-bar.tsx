@@ -1,11 +1,19 @@
 "use client";
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { SidebarTrigger } from "../ui/sidebar";
 
 type Props = {};
 
 const TopBar = (props: Props) => {
+   const [isMounted, setIsMounted] = useState<Boolean>(false);
+
+   useEffect(() => {
+      setIsMounted(true);
+   }, []);
+
+   if (!isMounted) return null;
+
    let title = document.title;
    title = title.substring(0, title.indexOf("|") - 1);
    return (
