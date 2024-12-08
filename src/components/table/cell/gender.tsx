@@ -19,7 +19,7 @@ const GenderCell = (props: Props) => {
       <div className="flex gap-2 items-center">
          <span
             className={cn(
-               "px-0.5 py-1 rounded",
+               "px-0.5 py-1 rounded text-destructive-foreground",
                gender === "MALE" ? "bg-blue-600" : "bg-pink-600"
             )}
          >

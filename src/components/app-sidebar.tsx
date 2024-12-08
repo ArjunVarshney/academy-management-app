@@ -1,3 +1,5 @@
+"use client";
+
 import {
    Home,
    Settings,
@@ -36,6 +38,7 @@ import {
 } from "@/components/ui/sidebar";
 import { ModeToggle } from "./mode-toggle";
 import { usePathname } from "next/navigation";
+import { cn } from "@/lib/utils";
 
 // Menu items.
 const items = [
@@ -172,6 +175,8 @@ const items = [
 ];
 
 export function AppSidebar() {
+   const pathname = usePathname();
+
    return (
       <Sidebar>
          <SidebarHeader className="bg-slate-200 dark:bg-slate-800">
@@ -189,7 +194,13 @@ export function AppSidebar() {
                   <SidebarGroupContent>
                      <SidebarMenu>
                         {navs.map((item) => (
-                           <SidebarMenuItem key={item.title}>
+                           <SidebarMenuItem
+                              key={item.title}
+                              className={cn(
+                                 "rounded",
+                                 item.url == pathname && "bg-secondary"
+                              )}
+                           >
                               <SidebarMenuButton asChild>
                                  <a href={item.url}>
                                     <item.icon />

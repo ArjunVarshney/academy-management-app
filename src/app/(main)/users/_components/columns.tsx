@@ -102,6 +102,18 @@ export const columns: ColumnDef<UserTableData>[] = [
       accessorKey: "dob",
       header: "Date of Birth",
       cell: ({ row }) => <DateCell date={row.getValue("dob")} />,
+      filterFn: (row, columnId, value) => {
+         const date = new Date(row.getValue(columnId));
+         const today = new Date();
+
+         const years = Math.floor(
+            (today.getTime() - date.getTime()) / 3.15576e10
+         );
+
+         const [start, end] = value;
+
+         return years >= start && years <= end;
+      },
    },
    {
       accessorKey: "bloodType",
@@ -117,6 +129,18 @@ export const columns: ColumnDef<UserTableData>[] = [
       accessorKey: "joined_at",
       header: "Joined At",
       cell: ({ row }) => <DateCell date={row.getValue("joined_at")} />,
+      filterFn: (row, columnId, value) => {
+         const date = new Date(row.getValue(columnId));
+         const today = new Date();
+
+         const years = Math.floor(
+            (today.getTime() - date.getTime()) / 3.15576e10
+         );
+
+         const [start, end] = value;
+
+         return years >= start && years <= end;
+      },
    },
    {
       accessorKey: "achievements",

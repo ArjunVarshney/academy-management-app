@@ -8,6 +8,12 @@ import { Input } from "@/components/ui/input";
 import { DataTableViewOptions } from "@/components/table/data-table-view-options";
 
 import { DataTableFacetedFilter } from "@/components/table/data-table-faceted-filter";
+import { DataTableRangeFilter } from "@/components/table/data-table-range-filter";
+import {
+   BLOOD_GROUPS,
+   GENDER_CATEGORIES,
+   ROLES,
+} from "@/constants/users/filter-categories";
 
 interface DataTableToolbarProps<TData> {
    table: Table<TData>;
@@ -35,84 +41,39 @@ export function DataTableToolbar<TData>({
                <DataTableFacetedFilter
                   column={table.getColumn("gender")}
                   title="Gender"
-                  options={[
-                     {
-                        value: "MALE",
-                        label: "Male",
-                     },
-                     {
-                        value: "FEMALE",
-                        label: "Female",
-                     },
-                  ]}
+                  options={GENDER_CATEGORIES}
                />
             )}
             {table.getColumn("role") && (
                <DataTableFacetedFilter
                   column={table.getColumn("role")}
                   title="Role"
-                  options={[
-                     {
-                        value: "OWNER",
-                        label: "Owner",
-                     },
-                     {
-                        value: "ADMIN",
-                        label: "Admin",
-                     },
-                     {
-                        value: "TEACHER",
-                        label: "Teacher",
-                     },
-                     {
-                        value: "STUDENT",
-                        label: "Student",
-                     },
-                     {
-                        value: "STAFF",
-                        label: "Staff",
-                     },
-                  ]}
+                  options={ROLES}
                />
             )}
             {table.getColumn("bloodType") && (
                <DataTableFacetedFilter
                   column={table.getColumn("bloodType")}
                   title="Blood Group"
-                  options={[
-                     {
-                        value: "O-",
-                        label: "O-",
-                     },
-                     {
-                        value: "O+",
-                        label: "O+",
-                     },
-                     {
-                        value: "A-",
-                        label: "A-",
-                     },
-                     {
-                        value: "A+",
-                        label: "A+",
-                     },
-                     {
-                        value: "B-",
-                        label: "B-",
-                     },
-                     {
-                        value: "B+",
-                        label: "B+",
-                     },
-                     {
-                        value: "AB-",
-                        label: "AB-",
-                     },
-                     {
-                        value: "AB+",
-                        label: "AB+",
-                     },
-                  ]}
+                  options={BLOOD_GROUPS}
+               />
+            )}
+            {table.getColumn("dob") && (
+               <DataTableRangeFilter
+                  column={table.getColumn("dob")}
+                  title="Age"
+                  min={2}
+                  max={80}
+                  desc="years"
+               />
+            )}
+            {table.getColumn("joined_at") && (
+               <DataTableRangeFilter
+                  column={table.getColumn("joined_at")}
+                  title="Experience"
+                  min={0}
+                  max={30}
+                  desc="years"
                />
             )}
             {isFiltered && (

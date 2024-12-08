@@ -3,7 +3,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { columns, initialColumns } from "./_components/columns";
 import axios from "axios";
-import { DataTable } from "@/components/table/data-table";
+import { DataTable } from "./_components/data-table";
 
 export default function UsersPage() {
    const { data, isLoading, isError } = useQuery({
@@ -16,7 +16,13 @@ export default function UsersPage() {
 
    return (
       <div className="max-w-full py-10">
-         {!isLoading && <DataTable columns={columns} data={data?.data.data} visibleColumns={initialColumns} />}
+         {!isLoading && !isError && (
+            <DataTable
+               columns={columns}
+               data={data?.data.data}
+               visibleColumns={initialColumns}
+            />
+         )}
       </div>
    );
 }
